@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <footer className="mt-auto">
+    <footer className="mt-auto py-3">
       <div className="container flex justify-between items-center text-secondary">
         <div>
           <p className="">© 2023 Synth Academy. All Rights Reserved</p>
