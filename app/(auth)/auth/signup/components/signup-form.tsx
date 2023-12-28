@@ -32,7 +32,7 @@ export const SignupForm = (props: SigninFormProps) => {
     console.log(data);
   };
   return (
-    <div className="w-[600px] shadow rounded p-10 space-y-7 bg-white">
+    <div>
       <div>
         <Image
           src={Images.logoIconSvg}

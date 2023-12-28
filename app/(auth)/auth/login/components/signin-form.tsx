@@ -31,7 +31,7 @@ export const SigninForm = (props: SigninFormProps) => {
   };
 
   return (
-    <div className="w-[500px] shadow rounded p-10 space-y-7 bg-white">
+    <div>
       <div>
         <Image
           src={Images.logoIconSvg}
@@ -110,7 +110,10 @@ export const SigninForm = (props: SigninFormProps) => {
 
         <div className="flex items-center justify-between">
           <FormElements.Checkbox label="Remember me" />
-          <Link href={"/forgot-password"} className="text-sm text-fill-primary">
+          <Link
+            href={"/auth/forgot-password"}
+            className="text-sm text-fill-primary"
+          >
             Forgot Password?
           </Link>
         </div>
