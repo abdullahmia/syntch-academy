@@ -1,28 +1,41 @@
 "use client";
 
-import { SessionProvider } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { PageLoader } from "../components/ui/loader/page-loader";
 import { setUser } from "../features/auth/auth.slice";
 import { useAppDispatch } from "../redux";
 
 export interface authProviderProps {
   children: React.ReactNode;
-  session: any;
+  // session: any;
 }
 
-// @ts-ignore
 export function AuthProvider(props: authProviderProps) {
-  console.log("Session: ", props.session);
+  // Local State
+  const [isLoaded, setIsLoaded] = useState<boolean>(true);
 
+  const session: any = useSession();
   // hooks
   const dispatch = useAppDispatch();
-  if (props.session) {
-    dispatch(
-      setUser({
-        user: props.session.user,
-        token: props.session.token,
-      })
-    );
-  }
 
-  return <SessionProvider>{props.children}</SessionProvider>;
+  /**
+   * EFFECTS
+   */
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      setIsLoaded(true);
+      dispatch(
+        setUser({
+          user: session.data.user,
+          token: session.data.token,
+        })
+      );
+      setIsLoaded(false);
+    } else if (session.status === "unauthenticated") {
+      setIsLoaded(false);
+    }
+  }, [session, dispatch]);
+
+  return isLoaded ? <PageLoader /> : props.children;
 }

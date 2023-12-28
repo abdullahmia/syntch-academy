@@ -1,12 +1,15 @@
 "use client";
 
 import { useIsAuthenticated } from "@/app/hooks";
+import { useAppSelector } from "@/app/redux";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 
 export const Header = () => {
   const isAuthenticated = useIsAuthenticated();
+  const { user } = useAppSelector((state) => state.auth);
+  console.log(user);
   return (
     <header className="shadow py-3">
       <div className="container flex justify-between items-center">

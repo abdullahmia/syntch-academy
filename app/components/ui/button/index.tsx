@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Loader } from "../loader";
+import { Loader } from "../loader/loader";
 
 export interface ButtonProps {
   loading?: boolean;

@@ -1,7 +1,8 @@
-import { Session, getServerSession } from "next-auth";
+"use client";
+
+import { SessionProvider } from "next-auth/react";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
-import { authOptions } from "../lib/authOptions";
 import { AuthProvider } from "./authProvider";
 import ReduxProvider from "./reduxProvider";
 
@@ -10,16 +11,18 @@ export interface ProviderProps {
 }
 
 export const Providers = async ({ children }: ProviderProps) => {
-  const session: Session | null = await getServerSession(authOptions);
+  // const session: Session | null = await getServerSession(authOptions);
   return (
     <ReduxProvider>
-      <AuthProvider session={session}>
-        <main className="h-screen flex flex-col justify-between">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </main>
-      </AuthProvider>
+      <SessionProvider>
+        <AuthProvider>
+          <main className="h-screen flex flex-col justify-between">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </main>
+        </AuthProvider>
+      </SessionProvider>
     </ReduxProvider>
   );
 };
