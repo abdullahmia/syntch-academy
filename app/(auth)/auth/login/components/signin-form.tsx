@@ -3,17 +3,23 @@
 import { Button } from "@/app/components/ui/button";
 import FormElements from "@/app/components/ui/form-elements";
 import { Images } from "@/assets";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-export interface SigninFormProps {}
 
 type TSigninFormState = {
   email: string;
   password: string;
 };
 
-export const SigninForm = (props: SigninFormProps) => {
+export const SigninForm = () => {
+  // Local State
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+
   const {
     handleSubmit,
     control,
@@ -25,9 +31,36 @@ export const SigninForm = (props: SigninFormProps) => {
     },
   });
 
+  // Hooks
+  const router = useRouter();
+
   // Handle form submission
-  const onSubmit = (data: TSigninFormState) => {
-    console.log(data);
+  const onSubmit = async (data: TSigninFormState) => {
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const signInResponse = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+
+      if (signInResponse?.error) {
+        setError(signInResponse?.error);
+        setIsLoading(false);
+        return;
+      }
+
+      setIsLoading(false);
+      router.push("/");
+    } catch (err) {
+      const errorMessage = err?.toString();
+      if (errorMessage?.includes("Invalid URL")) {
+        setError("Too many requests, please try again after some time!");
+        setIsLoading(false);
+      }
+    }
   };
 
   return (
@@ -48,6 +81,11 @@ export const SigninForm = (props: SigninFormProps) => {
           </Link>
         </p>
       </div>
+
+      <div className="py-4">
+        <FormElements.Error>{error}</FormElements.Error>
+      </div>
+
       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <FormElements.Label withAsterisk>Email</FormElements.Label>
@@ -118,7 +156,7 @@ export const SigninForm = (props: SigninFormProps) => {
           </Link>
         </div>
 
-        <Button variant="primary" type="submit" fullWidth>
+        <Button variant="primary" type="submit" fullWidth loading={isLoading}>
           Sign In
         </Button>
       </form>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Loader } from "../loader";
+import { Loader } from "../loader/loader";
 
 export interface ButtonProps {
   loading?: boolean;
@@ -25,7 +25,7 @@ export const Button = (props: ButtonProps) => {
     flex items-center justify-center gap-2
     ${
       props.variant === "secondary"
-        ? "shadow"
+        ? "shadow bg-white"
         : props.variant === "primary"
         ? "bg-fill-primary text-white"
         : props.variant === "outline"

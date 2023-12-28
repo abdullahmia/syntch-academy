@@ -2,11 +2,14 @@
 
 import { Button } from "@/app/components/ui/button";
 import FormElements from "@/app/components/ui/form-elements";
+import { useSignupMutation } from "@/app/features/auth/auth.api";
 import { Images } from "@/assets";
+import toast from "cogo-toast";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-export interface SigninFormProps {}
 
 type TSigninFormState = {
   firstName: string;
@@ -15,11 +18,15 @@ type TSigninFormState = {
   password: string;
 };
 
-export const SignupForm = (props: SigninFormProps) => {
+export const SignupForm = () => {
+  // Local state
+  const [respnseError, setRespnseError] = useState<string>("");
+
   const {
     handleSubmit,
     control,
     formState: { errors },
+    reset,
   } = useForm<TSigninFormState>({
     defaultValues: {
       email: "",
@@ -27,13 +34,40 @@ export const SignupForm = (props: SigninFormProps) => {
     },
   });
 
+  // Hooks
+  const router = useRouter();
+
+  // signup mutation
+  const [signup, { isLoading, isError, isSuccess, error }] =
+    useSignupMutation();
+
   // Handle form submission
   const onSubmit = (data: TSigninFormState) => {
-    console.log(data);
+    setRespnseError("");
+    signup(data);
   };
+
+  // handle the response
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Signup successful, please login to continue", {
+        position: "top-right",
+      });
+      reset();
+      router.push("/auth/login");
+    }
+    if (isError) {
+      // @ts-ignore
+      if (error?.data?.message) {
+        // @ts-ignore
+        setRespnseError(error?.data?.message as string);
+      }
+    }
+  }, [isSuccess, isError, error, router, reset]);
+
   return (
     <div>
-      <div>
+      <div className="mb-3">
         <Image
           src={Images.logoIconSvg}
           height={60}
@@ -49,6 +83,11 @@ export const SignupForm = (props: SigninFormProps) => {
           </Link>
         </p>
       </div>
+
+      <div className="py-4">
+        <FormElements.Error>{respnseError}</FormElements.Error>
+      </div>
+
       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center gap-5">
           <div className="w-full">
@@ -161,7 +200,7 @@ export const SignupForm = (props: SigninFormProps) => {
           )}
         </div>
 
-        <Button variant="primary" type="submit" fullWidth>
+        <Button variant="primary" type="submit" fullWidth loading={isLoading}>
           Sign Up
         </Button>
       </form>
