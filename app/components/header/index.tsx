@@ -21,7 +21,9 @@ export const Header = () => {
           <Button variant="secondary" linkButton to="/auth/login">
             Sign in
           </Button>
-          <Button variant="primary">Sign up</Button>
+          <Button variant="primary" linkButton to="/auth/signup">
+            Sign up
+          </Button>
         </div>
       </div>
     </header>

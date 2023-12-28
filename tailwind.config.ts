@@ -25,6 +25,7 @@ const config: Config = {
       secondary: "var(--secondary-text-color)",
       white: "var(--white-color)",
       lightGray: "var(--light-gray)",
+      dangerColor: "var(--danger-color)",
       fill: {
         primary: "var(--primary-fill-color)",
         secondary: "var(--secondary-fill-color)",
