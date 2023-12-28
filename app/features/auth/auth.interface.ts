@@ -24,10 +24,15 @@ export interface IUser {
   createdAt: string;
   updatedAt: string;
   id: string;
-  token: string;
+  token?: string;
 }
 interface ISession {
   data: IUser;
   status: string;
   update: any;
+}
+
+export interface IRegisterResponse {
+  data: IUser;
+  message: string;
 }

@@ -2,8 +2,10 @@
 
 import { Button } from "@/app/components/ui/button";
 import FormElements from "@/app/components/ui/form-elements";
+import { useResetPasswordMutation } from "@/app/features/auth/auth.api";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 type TResetPasswordFormState = {
@@ -11,6 +13,13 @@ type TResetPasswordFormState = {
 };
 
 export const ResetPasswordForm = () => {
+  // Local State
+  const [respnseError, setResponseError] = useState<string>("");
+
+  // get the token from the url
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
+
   const {
     handleSubmit,
     control,
@@ -24,11 +33,34 @@ export const ResetPasswordForm = () => {
   // hooks
   const router = useRouter();
 
+  // hook for password reset
+  const [resetPassword, { isLoading, isError, isSuccess, error }] =
+    useResetPasswordMutation();
+
   // Handle form submission
   const onSubmit = (data: TResetPasswordFormState) => {
-    console.log(data);
-    router.push("/auth/forgot-password/reset/success");
+    resetPassword({ ...data, token });
+    // router.push("/auth/forgot-password/reset/success");
   };
+
+  // if no token redirect to forgot password page
+  useEffect(() => {
+    if (!token) {
+      router.push("/auth/forgot-password");
+    }
+  }, [token, router]);
+
+  // handle server respnse
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/auth/forgot-password/reset/success");
+    }
+    if (isError) {
+      // @ts-ignore
+      setResponseError(error?.data?.message);
+    }
+  }, [isSuccess, isError, error, router]);
+
   return (
     <div>
       <div className="mb-4">
@@ -40,6 +72,9 @@ export const ResetPasswordForm = () => {
         <h2 className="text-[20px] text-primary font-semibold">
           Forgot Password
         </h2>
+      </div>
+      <div className="py-4">
+        <FormElements.Error>{respnseError}</FormElements.Error>
       </div>
       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
         <div>
@@ -69,7 +104,7 @@ export const ResetPasswordForm = () => {
           )}
         </div>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" loading={isLoading}>
           Reset Password
         </Button>
       </form>

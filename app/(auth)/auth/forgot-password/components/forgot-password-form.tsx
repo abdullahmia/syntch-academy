@@ -2,8 +2,10 @@
 
 import { Button } from "@/app/components/ui/button";
 import FormElements from "@/app/components/ui/form-elements";
+import { useForgotPasswordMutation } from "@/app/features/auth/auth.api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 type TForgotPasswordFormState = {
@@ -11,6 +13,9 @@ type TForgotPasswordFormState = {
 };
 
 export const ForgotPasswordForm = () => {
+  // Local state
+  const [respnseError, setResponseError] = useState<string>("");
+
   const {
     handleSubmit,
     control,
@@ -24,11 +29,28 @@ export const ForgotPasswordForm = () => {
   // hooks
   const router = useRouter();
 
+  // Hook for handling form submission
+  const [forgotPassword, { isLoading, isSuccess, isError, error }] =
+    useForgotPasswordMutation();
+
   // Handle form submission
   const onSubmit = (data: TForgotPasswordFormState) => {
-    console.log(data);
-    router.push("/auth/forgot-password/email-sent");
+    setResponseError("");
+    forgotPassword(data);
+    // router.push("/auth/forgot-password/email-sent");
   };
+
+  // handle server respnse
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/auth/forgot-password/email-sent");
+    }
+    if (isError) {
+      // @ts-ignore
+      setResponseError(error?.data?.message);
+    }
+  }, [isSuccess, isError, error, router]);
+
   return (
     <div>
       <div>
@@ -44,6 +66,9 @@ export const ForgotPasswordForm = () => {
           Lost your password? Please enter your username or email address. You
           will receive a link to create a new password via email.
         </p>
+      </div>
+      <div className="py-4">
+        <FormElements.Error>{respnseError}</FormElements.Error>
       </div>
       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
         <div>
@@ -70,7 +95,7 @@ export const ForgotPasswordForm = () => {
           )}
         </div>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" loading={isLoading}>
           Reset Password
         </Button>
       </form>
