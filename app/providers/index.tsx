@@ -1,3 +1,6 @@
+"use client";
+
+import { SessionProvider } from "next-auth/react";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 
@@ -7,10 +10,12 @@ export interface ProviderProps {
 
 export const Providers = ({ children }: ProviderProps) => {
   return (
-    <main className="h-screen flex flex-col justify-between">
-      <Header />
-      <main className="flex-1">{children}</main>
-      <Footer />
-    </main>
+    <SessionProvider>
+      <main className="h-screen flex flex-col justify-between">
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </main>
+    </SessionProvider>
   );
 };
