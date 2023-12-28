@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 export const Header = () => {
   return (
@@ -17,12 +18,10 @@ export const Header = () => {
           </div>
         </div>
         <div className="space-x-3">
-          <button className="px-4 py-2 bg-white text-primary shadow rounded">
+          <Button variant="secondary" linkButton to="/auth/login">
             Sign in
-          </button>
-          <button className="px-4 py-2 text-white bg-fill-primary rounded">
-            Sign up
-          </button>
+          </Button>
+          <Button variant="primary">Sign up</Button>
         </div>
       </div>
     </header>

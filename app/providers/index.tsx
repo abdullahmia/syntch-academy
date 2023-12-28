@@ -7,9 +7,9 @@ export interface ProviderProps {
 
 export const Providers = ({ children }: ProviderProps) => {
   return (
-    <main className="flex flex-col justify-between">
+    <main className="h-screen flex flex-col justify-between">
       <Header />
-      <main className="min-h-screen">{children}</main>
+      <main className="flex-1">{children}</main>
       <Footer />
     </main>
   );
