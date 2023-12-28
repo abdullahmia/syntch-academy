@@ -1,58 +1,35 @@
 "use client";
+import { useAppSelector } from "../redux";
 
-import { useSession } from "next-auth/react";
-
-interface SocialProfile {
-  linkedIn: string;
-  github: string;
-  website: string;
-}
-
-interface ProfilePicture {
-  public_id: string;
-  url: string;
-}
-
-interface IUser {
-  socialProfile: SocialProfile;
-  profilePicture: ProfilePicture;
-  firstName: string;
-  lastName: string;
-  username: string;
-  displayName: string;
-  email: string;
-  phoneNumber: string;
-  occupation: string;
-  role: string;
-  status: string;
-  createdAt: string;
-  updatedAt: string;
-  id: string;
-  token: string;
-}
-interface ISession {
-  data: IUser;
-  status: string;
-  update: any;
-}
-
+/**
+ * Custom React Hook: useIsAuthenticated
+ *
+ * This hook is designed to check whether a user is authenticated by examining
+ * the user and token state from the Redux store. It returns a boolean value
+ * indicating whether the user is authenticated or not.
+ *
+ * @returns {boolean} - Returns true if the user is authenticated, false otherwise.
+ *
+ * Usage:
+ * 1. Import the hook in your component:
+ *    ```
+ *    import { useIsAuthenticated } from 'path/to/your/hooks';
+ *    ```
+ * 2. Call the hook in your component to determine authentication status:
+ *    ```
+ *    const isAuthenticated = useIsAuthenticated();
+ *    if (isAuthenticated) {
+ *      // User is authenticated, show authenticated content
+ *    } else {
+ *      // User is not authenticated, show login/register UI
+ *    }
+ *    ```
+ */
 export const useIsAuthenticated = () => {
-  const session = useSession();
-  if (session?.data?.user && session?.status === "authenticated") {
+  const { user, token } = useAppSelector((state) => state.auth);
+  if (user && token) {
     return true;
   } else {
     return false;
-  }
-};
-
-export const useGetUser = () => {
-  const session = useSession();
-  if (session?.data?.user && session?.status === "authenticated") {
-    const user = session.data.user as IUser;
-    // @ts-ignore
-    const token = session.data?.token as string;
-    return { ...user, token } as IUser;
-  } else {
-    return null;
   }
 };

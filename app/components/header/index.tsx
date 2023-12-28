@@ -1,12 +1,11 @@
 "use client";
 
-import { useGetUser, useIsAuthenticated } from "@/app/hooks";
+import { useIsAuthenticated } from "@/app/hooks";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 
 export const Header = () => {
-  const data = useGetUser();
   const isAuthenticated = useIsAuthenticated();
   return (
     <header className="shadow py-3">

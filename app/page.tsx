@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const session: Session | null = await getServerSession(authOptions);
-  console.log(session);
   return (
     <div>
       <h1>My page</h1>
