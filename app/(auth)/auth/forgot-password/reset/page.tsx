@@ -1,14 +1,11 @@
 import { Metadata } from "next";
+import { ResetPasswordForm } from "./components";
 
 export const metadata: Metadata = {
-  title: "Synth Academy | A robust online learning platform for synthesizers",
+  title: "Reset Password | Synth Academy",
   description: "Synth Academy",
 };
 
 export default function Page() {
-  return (
-    <div>
-      <h1>My page</h1>
-    </div>
-  );
+  return <ResetPasswordForm />;
 }

@@ -1,14 +1,15 @@
 import { Metadata } from "next";
+import { SignupForm } from "./components/signup-form";
 
 export const metadata: Metadata = {
-  title: "Synth Academy | A robust online learning platform for synthesizers",
+  title: "Sign Up | Synth Academy",
   description: "Synth Academy",
 };
 
 export default function Page() {
   return (
-    <div>
-      <h1>My page</h1>
-    </div>
+    <main>
+      <SignupForm />
+    </main>
   );
 }

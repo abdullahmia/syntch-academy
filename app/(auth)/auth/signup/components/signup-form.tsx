@@ -9,11 +9,13 @@ import { Controller, useForm } from "react-hook-form";
 export interface SigninFormProps {}
 
 type TSigninFormState = {
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 };
 
-export const SigninForm = (props: SigninFormProps) => {
+export const SignupForm = (props: SigninFormProps) => {
   const {
     handleSubmit,
     control,
@@ -29,7 +31,6 @@ export const SigninForm = (props: SigninFormProps) => {
   const onSubmit = (data: TSigninFormState) => {
     console.log(data);
   };
-
   return (
     <div>
       <div>
@@ -40,15 +41,67 @@ export const SigninForm = (props: SigninFormProps) => {
           alt="logo"
           className="mb-5"
         />
-        <h2 className="text-[32px] text-primary font-semibold">Sign in</h2>
+        <h2 className="text-[32px] text-primary font-semibold">Sign up</h2>
         <p className="text-sm text-secondary">
-          Don&apos;t have an account?
-          <Link href={"/auth/signup"} className="ms-1 text-fill-primary">
-            Sign up
+          Already have an account?
+          <Link href={"/auth/login"} className="ms-1 text-fill-primary">
+            Sign in
           </Link>
         </p>
       </div>
       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex items-center gap-5">
+          <div className="w-full">
+            <FormElements.Label withAsterisk>First Name</FormElements.Label>
+            <Controller
+              name="firstName"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <FormElements.Input
+                  placeholder="First Name"
+                  value={value}
+                  onChange={onChange}
+                />
+              )}
+              rules={{
+                required: {
+                  value: true,
+                  message: "First Name is required",
+                },
+              }}
+            />
+            {errors.firstName && (
+              <FormElements.Error>
+                {errors.firstName.message}
+              </FormElements.Error>
+            )}
+          </div>
+
+          <div className="w-full">
+            <FormElements.Label withAsterisk>Last Name</FormElements.Label>
+            <Controller
+              name="lastName"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <FormElements.Input
+                  placeholder="Last Name"
+                  value={value}
+                  onChange={onChange}
+                />
+              )}
+              rules={{
+                required: {
+                  value: true,
+                  message: "Last Name is required",
+                },
+              }}
+            />
+            {errors.lastName && (
+              <FormElements.Error>{errors.lastName.message}</FormElements.Error>
+            )}
+          </div>
+        </div>
+
         <div>
           <FormElements.Label withAsterisk>Email</FormElements.Label>
           <Controller
@@ -108,18 +161,8 @@ export const SigninForm = (props: SigninFormProps) => {
           )}
         </div>
 
-        <div className="flex items-center justify-between">
-          <FormElements.Checkbox label="Remember me" />
-          <Link
-            href={"/auth/forgot-password"}
-            className="text-sm text-fill-primary"
-          >
-            Forgot Password?
-          </Link>
-        </div>
-
         <Button variant="primary" type="submit" fullWidth>
-          Sign In
+          Sign Up
         </Button>
       </form>
     </div>
