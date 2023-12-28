@@ -17,7 +17,7 @@ export const Header = () => {
             <Link href="/">Contact</Link>
           </div>
         </div>
-        <div className="space-x-3">
+        <div className="flex items-center gap-4">
           <Button variant="secondary" linkButton to="/auth/login">
             Sign in
           </Button>
