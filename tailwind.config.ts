@@ -9,9 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        profilebg: `url('./assets/images/profile-bg.png)`,
       },
     },
     container: {
@@ -25,6 +23,7 @@ const config: Config = {
       secondary: "var(--secondary-text-color)",
       white: "var(--white-color)",
       lightGray: "var(--light-gray)",
+      deepGray: "var(--deep-gray)",
       dangerColor: "var(--danger-color)",
       fill: {
         primary: "var(--primary-fill-color)",

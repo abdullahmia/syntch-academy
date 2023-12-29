@@ -1,6 +1,5 @@
 "use client";
 
-import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { AuthProvider } from "./authProvider";
 import ReduxProvider from "./reduxProvider";
@@ -14,10 +13,10 @@ export const Providers = async ({ children }: ProviderProps) => {
   return (
     <ReduxProvider>
       <AuthProvider>
-        <main className="h-screen flex flex-col justify-between">
+        <main className=" bg-fill-secondary">
           <Header />
           <main className="flex-1">{children}</main>
-          <Footer />
+          {/* <Footer /> */}
         </main>
       </AuthProvider>
     </ReduxProvider>
