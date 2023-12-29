@@ -1,9 +1,9 @@
 "use client";
 
-import { useIsAuthenticated } from "@/app/hooks";
+import { useIsAuthenticated, useLogout } from "@/app/hooks";
 import { useAppSelector } from "@/app/redux";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaGear, FaUser } from "react-icons/fa6";
 import { IoLogOutOutline } from "react-icons/io5";
 import { Avatar } from "../ui/avatar";
@@ -13,7 +13,17 @@ import { DropdownElement } from "../ui/dropdown";
 export const Header = () => {
   const isAuthenticated = useIsAuthenticated();
   const { user } = useAppSelector((state) => state.auth);
-  console.log(user);
+
+  // hooks
+  const { logout } = useLogout();
+  const router = useRouter();
+
+  // handle logout
+  const logoutHandler = () => {
+    logout();
+    router.push("/auth/login");
+  };
+
   return (
     <header className="shadow py-3">
       <div className="container flex justify-between items-center">
@@ -81,10 +91,7 @@ export const Header = () => {
               <hr className="border-lightGray" />
             </div>
 
-            <DropdownElement.DropdownItem
-              type="button"
-              onClick={() => signOut()}
-            >
+            <DropdownElement.DropdownItem type="button" onClick={logoutHandler}>
               <IoLogOutOutline size={16} /> Logout
             </DropdownElement.DropdownItem>
           </DropdownElement.DropdownWrapper>

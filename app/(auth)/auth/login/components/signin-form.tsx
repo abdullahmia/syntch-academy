@@ -2,8 +2,12 @@
 
 import { Button } from "@/app/components/ui/button";
 import FormElements from "@/app/components/ui/form-elements";
+import { constants } from "@/app/constants";
+import { useLoginMutation } from "@/app/features/auth/auth.api";
+import { setUser } from "@/app/features/auth/auth.slice";
+import { useLocalStorage } from "@/app/hooks/useLocalStorage";
+import { useAppDispatch } from "@/app/redux";
 import { Images } from "@/assets";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -33,6 +37,11 @@ export const SigninForm = () => {
 
   // Hooks
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { setItem } = useLocalStorage();
+
+  // hook for login
+  const [login] = useLoginMutation();
 
   // Handle form submission
   const onSubmit = async (data: TSigninFormState) => {
@@ -40,27 +49,22 @@ export const SigninForm = () => {
     setError("");
 
     try {
-      const signInResponse = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-      });
+      const respnse: any = await login(data);
 
-      if (signInResponse?.error) {
-        setError(signInResponse?.error);
+      if (respnse?.error) {
+        console.log(respnse);
+        setError(respnse?.error?.data?.message);
         setIsLoading(false);
         return;
+      } else {
+        dispatch(
+          setUser({ user: respnse?.data?.user, token: respnse?.data?.token })
+        );
+        setItem(constants.TOKEN, respnse?.data?.token);
+        setItem(constants.USER, JSON.stringify(respnse?.data?.user));
+        router.push("/");
       }
-
-      setIsLoading(false);
-      router.push("/");
-    } catch (err) {
-      const errorMessage = err?.toString();
-      if (errorMessage?.includes("Invalid URL")) {
-        setError("Too many requests, please try again after some time!");
-        setIsLoading(false);
-      }
-    }
+    } catch (err) {}
   };
 
   return (
