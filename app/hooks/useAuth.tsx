@@ -35,6 +35,25 @@ export const useIsAuthenticated = () => {
   }
 };
 
+/**
+ * Custom React Hook: useLogout
+ *
+ * This hook encapsulates the logic for logging out a user. It removes user
+ * and token information from the local storage and dispatches an action to
+ * remove user information from the Redux store.
+ *
+ * @returns {Object} - An object containing a `logout` function.
+ *
+ * Usage:
+ * 1. Import the hook in your component:
+ *    ```
+ *    import { useLogout } from 'path/to/your/hooks';
+ *    ```
+ *    const { logout } = useLogout();
+ *    <button onClick={logout}>Logout</button>
+ *    ```
+ */
+
 export const useLogout = () => {
   const dispatch = useAppDispatch();
   const logout = () => {

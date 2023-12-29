@@ -69,8 +69,10 @@ export const Header = () => {
                 />
               </div>
               <div>
-                <h2>
-                  {user?.firstName} {user?.lastName}
+                <h2 className="capitalize">
+                  {user?.displayName
+                    ? user?.displayName
+                    : user?.firstName + " " + user?.lastName}
                 </h2>
                 <p className="text-sm">{user?.email}</p>
               </div>

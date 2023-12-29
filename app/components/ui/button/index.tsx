@@ -15,7 +15,7 @@ export interface ButtonProps {
   type?: "button" | "submit" | "reset" | "link";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   to?: string;
-  onClick?: () => void;
+  onClick?: () => void | any;
   linkButton?: boolean;
   fullWidth?: boolean;
 }
