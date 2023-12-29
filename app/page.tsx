@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { Session, getServerSession } from "next-auth";
-import { authOptions } from "./lib/authOptions";
+import { TestServer } from "./components/TestServer";
+import { UpdateUser } from "./components/UpdateUser";
 
 export const metadata: Metadata = {
   title: "Synth Academy | A robust online learning platform for synthesizers",
@@ -8,10 +8,10 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const session: Session | null = await getServerSession(authOptions);
   return (
-    <div>
-      <h1>My page</h1>
-    </div>
+    <main className="container">
+      <TestServer />
+      <UpdateUser />
+    </main>
   );
 }

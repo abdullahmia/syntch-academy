@@ -36,3 +36,8 @@ export interface IRegisterResponse {
   data: IUser;
   message: string;
 }
+
+export interface ILoginResponse {
+  user: IUser;
+  token: string;
+}

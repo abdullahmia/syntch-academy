@@ -1,9 +1,16 @@
 import { endpoints } from "@/app/common";
 import { apiSlice } from "../api/api.slice";
-import { IRegisterResponse } from "./auth.interface";
+import { ILoginResponse, IRegisterResponse } from "./auth.interface";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    login: builder.mutation<ILoginResponse, any>({
+      query: (body) => ({
+        url: endpoints.auth.login,
+        method: "POST",
+        body,
+      }),
+    }),
     signup: builder.mutation<IRegisterResponse, any>({
       query: (body) => ({
         url: endpoints.auth.signup,
@@ -34,4 +41,5 @@ export const {
   useSignupMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useLoginMutation,
 } = authApi;

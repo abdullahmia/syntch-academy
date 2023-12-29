@@ -1,6 +1,5 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { PageLoader } from "../components/ui/loader/page-loader";
 import { setUser } from "../features/auth/auth.slice";
@@ -15,7 +14,6 @@ export function AuthProvider(props: authProviderProps) {
   // Local State
   const [isLoaded, setIsLoaded] = useState<boolean>(true);
 
-  const session: any = useSession();
   // hooks
   const dispatch = useAppDispatch();
 
@@ -23,19 +21,17 @@ export function AuthProvider(props: authProviderProps) {
    * EFFECTS
    */
   useEffect(() => {
-    if (session.status === "authenticated") {
+    if (window !== undefined) {
       setIsLoaded(true);
-      dispatch(
-        setUser({
-          user: session.data.user,
-          token: session.data.token,
-        })
-      );
+      const user = localStorage.getItem("user");
+      const token = localStorage.getItem("token");
+      if (user !== undefined && token !== undefined)
+        dispatch(setUser({ user: JSON?.parse(user as string), token }));
       setIsLoaded(false);
-    } else if (session.status === "unauthenticated") {
+    } else {
       setIsLoaded(false);
     }
-  }, [session, dispatch]);
+  }, [dispatch]);
 
   return isLoaded ? <PageLoader /> : props.children;
 }

@@ -32,9 +32,21 @@ export const authOptions: AuthOptions = {
           }
         );
         const data = await res.json();
+        console.log("Data in credentials authorize: ", data);
         if (data?.message) {
           throw new Error(data.message);
         }
+        return data;
+      },
+    }),
+    CredentialsProvider({
+      id: "update-session",
+      name: "Update Session",
+      credentials: {},
+      async authorize(credentials, _req) {
+        const data = {
+          ...credentials,
+        };
         return data;
       },
     }),
@@ -51,6 +63,7 @@ export const authOptions: AuthOptions = {
       if (user) {
         token = { ...token, ...user };
       }
+      console.log("Token in jwt callback: ", token);
       return token;
     },
     async session({ session, token }) {

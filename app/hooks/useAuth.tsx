@@ -1,5 +1,6 @@
 "use client";
-import { useAppSelector } from "../redux";
+import { removeUser } from "../features/auth/auth.slice";
+import { useAppDispatch, useAppSelector } from "../redux";
 
 /**
  * Custom React Hook: useIsAuthenticated
@@ -32,4 +33,14 @@ export const useIsAuthenticated = () => {
   } else {
     return false;
   }
+};
+
+export const useLogout = () => {
+  const dispatch = useAppDispatch();
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    dispatch(removeUser());
+  };
+  return { logout };
 };
