@@ -92,15 +92,15 @@ export const EditProfile = () => {
 
   useEffect(() => {
     if (user) {
-      setValue("firstName", user.firstName);
-      setValue("lastName", user.lastName);
-      setValue("username", user.username);
-      setValue("phoneNumber", user.phoneNumber);
-      setValue("occupation", user.occupation);
-      setValue("displayName", user.displayName);
-      setValue("socialProfile.website", user.socialProfile.website);
-      setValue("socialProfile.github", user.socialProfile.github);
-      setValue("socialProfile.linkedIn", user.socialProfile.linkedIn);
+      setValue("firstName", user?.firstName ?? "");
+      setValue("lastName", user?.lastName ?? "");
+      setValue("username", user?.username ?? "");
+      setValue("phoneNumber", user?.phoneNumber ?? "");
+      setValue("occupation", user?.occupation ?? "");
+      setValue("displayName", user?.displayName ?? "");
+      setValue("socialProfile.website", user?.socialProfile?.website ?? "");
+      setValue("socialProfile.github", user?.socialProfile?.github ?? "");
+      setValue("socialProfile.linkedIn", user?.socialProfile?.linkedIn ?? "");
     }
   }, [user, setValue]);
 
@@ -172,7 +172,7 @@ export const EditProfile = () => {
                   type="text"
                   value={value}
                   onChange={onChange}
-                  disabled
+                  disabled={user?.username ? true : false}
                 />
               )}
               rules={{
@@ -232,7 +232,13 @@ export const EditProfile = () => {
                 onChange={onChange}
               />
             )}
+            // rules={{
+            //   required: "Occupation is required",
+            // }}
           />
+          {/* {errors.occupation && (
+            <FormElements.Error>{errors.occupation.message}</FormElements.Error>
+          )} */}
         </div>
 
         <div className="w-full">
@@ -249,7 +255,15 @@ export const EditProfile = () => {
                 onChange={onChange}
               />
             )}
+            // rules={{
+            //   required: "Display name is required",
+            // }}
           />
+          {/* {errors.displayName && (
+            <FormElements.Error>
+              {errors.displayName.message}
+            </FormElements.Error>
+          )} */}
 
           <p className="text-sm font-extralight pt-2 text-deepGray">
             The display name is shown in all public fields, such as the author
