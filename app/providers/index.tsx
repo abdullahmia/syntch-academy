@@ -11,14 +11,16 @@ export interface ProviderProps {
 export const Providers = async ({ children }: ProviderProps) => {
   // const session: Session | null = await getServerSession(authOptions);
   return (
-    <ReduxProvider>
-      <AuthProvider>
-        <main className=" bg-fill-secondary">
-          <Header />
-          <main className="flex-1">{children}</main>
-          {/* <Footer /> */}
-        </main>
-      </AuthProvider>
-    </ReduxProvider>
+    <main className="bg-fill-secondary">
+      <ReduxProvider>
+        <AuthProvider>
+          <div className="h-screen flex flex-col justify-between">
+            <Header />
+            <div className="flex-1">{children}</div>
+            {/* <Footer /> */}
+          </div>
+        </AuthProvider>
+      </ReduxProvider>
+    </main>
   );
 };

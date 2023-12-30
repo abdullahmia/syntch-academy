@@ -41,7 +41,7 @@ export const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
 
       <div className="flex gap-6">
         <Sidebar />
-        <div className="bg-white h-full w-full">{children}</div>
+        <div className="bg-white h-full w-full rounded-md">{children}</div>
       </div>
     </main>
   );

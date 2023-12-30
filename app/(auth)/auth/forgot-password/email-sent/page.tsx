@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main>
+    <main className="w-full">
       <div>
         <div className="mb-4">
           <a href="/" className="text-fill-primary">

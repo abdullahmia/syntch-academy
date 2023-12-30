@@ -7,5 +7,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <ResetPasswordForm />;
+  return (
+    <main className="w-full">
+      <ResetPasswordForm />
+    </main>
+  );
 }
