@@ -5,11 +5,17 @@ export interface ButtonProps {
   loading?: boolean;
   disabled?: boolean;
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "outline" | "text";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "outline"
+    | "text"
+    | "outline-secondary"
+    | "danger";
   type?: "button" | "submit" | "reset" | "link";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   to?: string;
-  onClick?: () => void;
+  onClick?: () => void | any;
   linkButton?: boolean;
   fullWidth?: boolean;
 }
@@ -30,6 +36,10 @@ export const Button = (props: ButtonProps) => {
         ? "bg-fill-primary text-white"
         : props.variant === "outline"
         ? "border border-primary hover:bg-primary hover:text-white"
+        : props.variant === "outline-secondary"
+        ? "border border-lightGray hover:border-deepGray"
+        : props.variant === "danger"
+        ? "border border-dangerColor text-dangerColor"
         : ""
     }
     ${props.fullWidth ? "w-full" : ""}

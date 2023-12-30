@@ -10,7 +10,7 @@ import { useAppDispatch } from "@/app/redux";
 import { Images } from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
@@ -62,7 +62,8 @@ export const SigninForm = () => {
         );
         setItem(constants.TOKEN, respnse?.data?.token);
         setItem(constants.USER, JSON.stringify(respnse?.data?.user));
-        router.push("/");
+
+        return redirect("/");
       }
     } catch (err) {}
   };

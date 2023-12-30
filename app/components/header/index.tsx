@@ -25,7 +25,7 @@ export const Header = () => {
   };
 
   return (
-    <header className="shadow py-3">
+    <header className="shadow py-3 bg-white">
       <div className="container flex justify-between items-center">
         <div className="flex items-center gap-8 text-primary">
           <Link href={"/"} className="text-2xl font-semibold">
@@ -69,8 +69,10 @@ export const Header = () => {
                 />
               </div>
               <div>
-                <h2>
-                  {user?.firstName} {user?.lastName}
+                <h2 className="capitalize">
+                  {user?.displayName
+                    ? user?.displayName
+                    : user?.firstName + " " + user?.lastName}
                 </h2>
                 <p className="text-sm">{user?.email}</p>
               </div>
@@ -83,7 +85,7 @@ export const Header = () => {
             <DropdownElement.DropdownItem type="link" to="/admin/appearance">
               <FaUser size={16} /> Account
             </DropdownElement.DropdownItem>
-            <DropdownElement.DropdownItem type="link" to="/admin/settings">
+            <DropdownElement.DropdownItem type="link" to="/settings">
               <FaGear size={16} /> Settings
             </DropdownElement.DropdownItem>
 

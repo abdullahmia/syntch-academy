@@ -6,6 +6,7 @@ export interface InputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   width?: "full" | "half" | "third" | "quarter" | "auto";
   fontSizeVariant?: "small" | "medium" | "large";
+  disabled?: boolean;
 }
 
 export const Input = ({
@@ -16,6 +17,7 @@ export const Input = ({
   onChange,
   width = "full",
   fontSizeVariant,
+  disabled = false,
 }: InputProps) => {
   return (
     <div>
@@ -42,6 +44,7 @@ export const Input = ({
           }
         focus:outline-none
         `}
+        disabled={disabled}
       />
     </div>
   );
