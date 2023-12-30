@@ -22,7 +22,7 @@ export const Sidebar = () => {
           </NavLink>
 
           <NavLink
-            href="/profile"
+            href="/dashboard/profile"
             extraClasses="text-sm text-primary flex items-center gap-2 px-3 py-2 rounded-md"
             activeClassName="bg-[#E3DCFF] text-fill-primary"
           >
@@ -31,7 +31,7 @@ export const Sidebar = () => {
           </NavLink>
 
           <Link
-            href="/profile"
+            href="/enrolled-courses"
             className="text-sm text-primary flex items-center gap-2 px-3 py-2 rounded-md"
           >
             <LuBook size={18} />
@@ -44,7 +44,7 @@ export const Sidebar = () => {
         <p className="text-sm text-deepGray uppercase">Account Settings</p>
         <div className="space-y-2 mt-2">
           <NavLink
-            href="/settings"
+            href="/dashboard/settings"
             extraClasses="text-sm text-primary flex items-center gap-2 px-3 py-2 rounded-md"
             activeClassName="bg-[#E3DCFF] text-fill-primary"
           >
@@ -52,13 +52,15 @@ export const Sidebar = () => {
             Edit Profile
           </NavLink>
 
-          <Link
-            href="/profile"
-            className="text-sm text-primary flex items-center gap-2 px-3 py-2 rounded-md"
+          <NavLink
+            href="/dashboard/security"
+            extraClasses="text-sm text-primary flex items-center gap-2 px-3 py-2 rounded-md"
+            activeClassName="bg-[#E3DCFF] text-fill-primary"
           >
             <IoLockOpenOutline size={18} />
             Security
-          </Link>
+          </NavLink>
+
           <button className="text-sm text-primary flex items-center gap-2 px-3 py-2 rounded-md">
             <IoLogOutOutline size={18} />
             Logout

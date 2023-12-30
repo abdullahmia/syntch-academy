@@ -18,13 +18,12 @@ export interface ButtonProps {
   onClick?: () => void | any;
   linkButton?: boolean;
   fullWidth?: boolean;
+  weight?: "normal" | "bold" | "light";
 }
 
 export const Button = (props: ButtonProps) => {
   let classess = `
-    px-6 py-3.5
     rounded
-    font-semibold
     transition
     duration-200
     ease-in-out
@@ -41,6 +40,28 @@ export const Button = (props: ButtonProps) => {
         : props.variant === "danger"
         ? "border border-dangerColor text-dangerColor"
         : ""
+    }
+    ${
+      props.weight === "bold"
+        ? "font-bold"
+        : props.weight === "normal"
+        ? "font-light"
+        : props.weight === "light"
+        ? "font-extraLight"
+        : "font-normal"
+    }
+    ${
+      props.size === "xs"
+        ? "px-2 py-1 text-xs"
+        : props.size === "sm"
+        ? "px-3 py-2 text-sm"
+        : props.size === "md"
+        ? "px-4 py-2 text-base"
+        : props.size === "lg"
+        ? "px-6 py-3 text-lg"
+        : props.size === "xl"
+        ? "px-8 py-4 text-xl"
+        : "px-6 py-3.5"
     }
     ${props.fullWidth ? "w-full" : ""}
   `;

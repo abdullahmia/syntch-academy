@@ -9,7 +9,7 @@ export function convertTimestamp(timestamp: string): string {
   };
 
   const date = new Date(timestamp);
-  const formattedDate = new Intl.DateTimeFormat("en-US", options).format(date);
+  const formattedDate = new Intl.DateTimeFormat("en-US", options)?.format(date);
 
   return formattedDate;
 }

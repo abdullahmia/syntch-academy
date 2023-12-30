@@ -34,6 +34,25 @@ export const authApi = apiSlice.injectEndpoints({
         },
       }),
     }),
+    changePassword: builder.mutation({
+      query: (body) => ({
+        url: endpoints.auth.changePassword,
+        method: "PATCH",
+        body,
+      }),
+    }),
+    sendVarificationEmail: builder.mutation({
+      query: () => ({
+        url: endpoints.auth.sendVarificationEmail,
+        method: "POST",
+      }),
+    }),
+    verifyEmail: builder.mutation({
+      query: (token) => ({
+        url: `${endpoints.auth.verifyEmail}?token=${token}`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -42,4 +61,7 @@ export const {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useLoginMutation,
+  useChangePasswordMutation,
+  useSendVarificationEmailMutation,
+  useVerifyEmailMutation,
 } = authApi;
