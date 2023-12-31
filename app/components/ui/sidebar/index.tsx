@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AiOutlineHome } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
 import { GoGear } from "react-icons/go";
+import { HiOutlineServer } from "react-icons/hi2";
 import { IoLockOpenOutline, IoLogOutOutline } from "react-icons/io5";
 import { LuBook } from "react-icons/lu";
 import { NavLink } from "../nav-link";
@@ -32,11 +33,25 @@ export const Sidebar = () => {
 
           <Link
             href="/enrolled-courses"
-            className="text-sm text-primary flex items-center gap-2 px-3 py-2 rounded-md"
+            className="text-sm text-primary flex items-center gap-2 px-3 py-2 rounded-md "
           >
             <LuBook size={18} />
             Enrolled Courses
           </Link>
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <p className="text-sm text-deepGray uppercase">Media Management</p>
+        <div className="space-y-2 mt-2">
+          <NavLink
+            href="/dashboard/file-manager"
+            extraClasses="text-sm text-primary flex items-center gap-2 px-3 py-2 rounded-md"
+            activeClassName="bg-[#E3DCFF] text-fill-primary"
+          >
+            <HiOutlineServer size={18} />
+            File Manager
+          </NavLink>
         </div>
       </div>
 
