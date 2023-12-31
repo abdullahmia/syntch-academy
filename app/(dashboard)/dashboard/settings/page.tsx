@@ -11,7 +11,9 @@ export default async function Page() {
   return (
     <main>
       <div className="p-6">
-        <h2 className="text-2xl font-semibold text-primary">Profile Details</h2>
+        <h2 className="text-[1.25rem] font-semibold text-primary">
+          Profile Details
+        </h2>
         <p className="text-sm text-deepGray">
           You have full control to manage your own account setting.
         </p>

@@ -5,6 +5,8 @@ export const endpoints = {
     forgotPassword: "/auth/forgot-password",
     verifyEmail: "/auth/verify-email",
     resetPassword: "/auth/reset-password",
+    changePassword: "/auth/change-password",
+    sendVarificationEmail: "/auth/send-verification-email",
   },
   user: {
     root: "/users",

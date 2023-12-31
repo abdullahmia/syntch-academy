@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { VerifiedAuth } from "../../components/VerifiedAuth";
 import { SignupForm } from "./components/signup-form";
 
 export const metadata: Metadata = {
@@ -8,8 +9,8 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main>
+    <VerifiedAuth>
       <SignupForm />
-    </main>
+    </VerifiedAuth>
   );
 }

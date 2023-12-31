@@ -57,12 +57,11 @@ export const SigninForm = () => {
         setIsLoading(false);
         return;
       } else {
+        setItem(constants.TOKEN, respnse?.data?.token);
+        setItem(constants.USER, JSON.stringify(respnse?.data?.user));
         dispatch(
           setUser({ user: respnse?.data?.user, token: respnse?.data?.token })
         );
-        setItem(constants.TOKEN, respnse?.data?.token);
-        setItem(constants.USER, JSON.stringify(respnse?.data?.user));
-
         return redirect("/");
       }
     } catch (err) {}

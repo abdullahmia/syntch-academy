@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div>
+    <div className="w-full">
       <div className="mb-6">
         <Link href={"/"} className="text-fill-primary">
           Synth Academy
