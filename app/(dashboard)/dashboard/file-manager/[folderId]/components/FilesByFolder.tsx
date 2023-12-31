@@ -18,7 +18,7 @@ export const FilesByFolder = () => {
     <div>
       <div>
         <div className="flex items-center gap-3">
-          <Button onClick={navigateToFolder}>
+          <Button variant="text" onClick={navigateToFolder}>
             <BsArrowLeft />
           </Button>
           <h2 className="text-md font-semibold text-primary">Files</h2>
