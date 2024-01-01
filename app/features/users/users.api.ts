@@ -7,7 +7,7 @@ export const userApi = apiSlice.injectEndpoints({
       query: ({ payload, id }) => ({
         url: `${endpoints.user.root}/${id}`,
         method: "PATCH",
-        body: payload,
+        data: payload,
       }),
     }),
     deleteProfilePicture: builder.mutation({
@@ -20,7 +20,7 @@ export const userApi = apiSlice.injectEndpoints({
       query: (body) => ({
         url: endpoints.user.updateProfilePicture,
         method: "PATCH",
-        body,
+        data: body,
       }),
     }),
   }),

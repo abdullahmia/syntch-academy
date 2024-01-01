@@ -13,6 +13,7 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Users"],
+  // baseQuery: axiosBaseQuery({ baseUrl: "http://localhost:8000/api/v1" }),
+  tagTypes: ["Users", "Media", "Courses", "Lessons", "Categories", "Tags"],
   endpoints: (builder) => ({}),
 });

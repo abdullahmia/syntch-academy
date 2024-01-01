@@ -13,4 +13,13 @@ export const endpoints = {
     deleteProfilePicture: "/users/delete-profile-picture",
     updateProfilePicture: "/users/upload-profile-picture",
   },
+  media: {
+    root: "/media",
+    folder: {
+      root: "/media/folder",
+    },
+    file: {
+      root: "/media/media",
+    },
+  },
 };

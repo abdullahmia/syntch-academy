@@ -3,6 +3,11 @@
 import { Button } from "@/app/components/ui/button";
 import FormElements from "@/app/components/ui/form-elements";
 import Modal from "@/app/components/ui/modal";
+import {
+  useAddFileMutation,
+  useGetFilesAndFoldersQuery,
+} from "@/app/features/media/media.api";
+import toast from "cogo-toast";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -15,15 +20,20 @@ export interface UploadModalProps {
 }
 
 interface IFolderFormState {
-  name: string;
+  folderId: string;
 }
 
 export const UploadFileModal = (props: UploadModalProps) => {
   const [file, setFile] = useState<File | null>(null);
   const filePickerRef = useRef(null);
+  const [folders, setFolders] = useState<
+    { label: string; value: string }[] | null
+  >(null);
+
+  const { data } = useGetFilesAndFoldersQuery();
 
   // add photo to image
-  const addFile = (e: any) => {
+  const uploadFile = (e: any) => {
     if (e.target.files[0]) {
       setFile(e.target.files[0]);
     }
@@ -36,12 +46,31 @@ export const UploadFileModal = (props: UploadModalProps) => {
     reset,
   } = useForm<IFolderFormState>({
     defaultValues: {
-      name: "",
+      folderId: "",
     },
   });
 
-  const onSubmit = (data: IFolderFormState) => {
-    console.log(data);
+  const [addFile, { isLoading }] = useAddFileMutation();
+
+  const onSubmit = async (data: IFolderFormState) => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("folderId", data.folderId);
+      const res: any = await addFile(formData);
+
+      if (res.data) {
+        toast.success("File uploaded successfully!", {
+          position: "top-right",
+        });
+        props.toggoleModal();
+      }
+      if (res.error) {
+        toast.error("Something went wrong! Please try again.", {
+          position: "top-right",
+        });
+      }
+    }
   };
 
   useEffect(() => {
@@ -49,20 +78,18 @@ export const UploadFileModal = (props: UploadModalProps) => {
     setFile(null);
   }, [props.isOpen, reset]);
 
-  const folderOptions = [
-    {
-      label: "Folder 1",
-      value: "folder1",
-    },
-    {
-      label: "Folder 2",
-      value: "folder2",
-    },
-    {
-      label: "Folder 3",
-      value: "folder3",
-    },
-  ];
+  useEffect(() => {
+    if (data) {
+      setFolders(
+        data.folders.map((folder) => {
+          return {
+            label: folder.name,
+            value: folder.id,
+          };
+        })
+      );
+    }
+  }, [data]);
 
   return (
     <Modal
@@ -85,13 +112,13 @@ export const UploadFileModal = (props: UploadModalProps) => {
           <div>
             <FormElements.Label withAsterisk>Select folder</FormElements.Label>
             <Controller
-              name="name"
+              name="folderId"
               control={control}
               render={({ field: { onChange, value } }) => (
                 <FormElements.Select
                   onChange={onChange}
                   value={value}
-                  options={folderOptions}
+                  options={folders || []}
                   placeholder="Select folder"
                 />
               )}
@@ -160,7 +187,7 @@ export const UploadFileModal = (props: UploadModalProps) => {
                   <input
                     type="file"
                     hidden
-                    onChange={addFile}
+                    onChange={uploadFile}
                     ref={filePickerRef}
                   />
                   <button
@@ -181,7 +208,12 @@ export const UploadFileModal = (props: UploadModalProps) => {
           </div>
 
           <div className="">
-            <Button variant="primary" type="submit">
+            <Button
+              variant="primary"
+              type="submit"
+              loading={isLoading}
+              disabled={!file || isLoading}
+            >
               Upload file
             </Button>
           </div>

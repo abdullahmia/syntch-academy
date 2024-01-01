@@ -15,10 +15,11 @@ export interface ButtonProps {
   type?: "button" | "submit" | "reset" | "link";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   to?: string;
-  onClick?: () => void | any;
+  onClick?: any;
   linkButton?: boolean;
   fullWidth?: boolean;
   weight?: "normal" | "bold" | "light";
+  customClass?: string;
 }
 
 export const Button = (props: ButtonProps) => {
@@ -27,7 +28,7 @@ export const Button = (props: ButtonProps) => {
     transition
     duration-200
     ease-in-out
-    flex items-center justify-center gap-2
+    flex items-center gap-2
     ${
       props.variant === "secondary"
         ? "shadow bg-white"
@@ -39,7 +40,7 @@ export const Button = (props: ButtonProps) => {
         ? "border border-lightGray hover:border-deepGray"
         : props.variant === "danger"
         ? "border border-dangerColor text-dangerColor"
-        : ""
+        : props.variant === "text" && "hover:bg-lightGray"
     }
     ${
       props.weight === "bold"
@@ -63,6 +64,7 @@ export const Button = (props: ButtonProps) => {
         ? "px-8 py-4 text-xl"
         : "px-6 py-3.5"
     }
+    ${props.customClass}
     ${props.fullWidth ? "w-full" : ""}
   `;
   return !props.linkButton ? (
