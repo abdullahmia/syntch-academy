@@ -56,6 +56,13 @@ export const mediaApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Media"],
     }),
+    deleteMedia: builder.mutation<string, any>({
+      query: (id) => ({
+        url: `${endpoints.media.file.root}/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Media"],
+    }),
   }),
 });
 
@@ -64,4 +71,5 @@ export const {
   useGetFilesAndFoldersQuery,
   useAddFileMutation,
   useRenameFolderMutation,
+  useDeleteMediaMutation,
 } = mediaApi;

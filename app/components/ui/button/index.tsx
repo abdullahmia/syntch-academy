@@ -29,6 +29,7 @@ export const Button = (props: ButtonProps) => {
     duration-200
     ease-in-out
     flex items-center gap-2
+    cursor-pointer
     ${
       props.variant === "secondary"
         ? "shadow bg-white"
@@ -65,7 +66,7 @@ export const Button = (props: ButtonProps) => {
         : "px-6 py-3.5"
     }
     ${props.customClass}
-    ${props.fullWidth ? "w-full" : ""}
+    ${props.fullWidth ? "w-full flex item-center justify-center" : ""}
   `;
   return !props.linkButton ? (
     <button

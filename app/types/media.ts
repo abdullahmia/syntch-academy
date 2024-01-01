@@ -19,5 +19,5 @@ export interface IFile {
 
 export interface IGetFilesAndFoldersResponse {
   folders: IFolder[];
-  files: any;
+  files: IFile[];
 }

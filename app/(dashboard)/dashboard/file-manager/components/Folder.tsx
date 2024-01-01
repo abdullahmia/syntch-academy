@@ -56,7 +56,12 @@ export const Folder = (props: IFolderProps) => {
         </div>
         {isMenuOpen && (
           <div className="w-[250px] z-[100] absolute shadow -right-28 top-0 mt-10 p-2 origin-top-right rounded bg-white border border-lightGray space-y-3">
-            <Button variant="text" size="sm" fullWidth>
+            <Button
+              variant="text"
+              size="sm"
+              fullWidth
+              onClick={navigateToFolder}
+            >
               <IoMdFolderOpen size={18} />
               <span className="text-sm">Open</span>
             </Button>
