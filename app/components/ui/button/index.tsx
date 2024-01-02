@@ -20,6 +20,7 @@ export interface ButtonProps {
   fullWidth?: boolean;
   weight?: "normal" | "bold" | "light";
   customClass?: string;
+  flex?: boolean;
 }
 
 export const Button = (props: ButtonProps) => {
@@ -66,7 +67,7 @@ export const Button = (props: ButtonProps) => {
         : "px-6 py-3.5"
     }
     ${props.customClass}
-    ${props.fullWidth ? "w-full flex item-center justify-center" : ""}
+    ${props.fullWidth ? "w-full" : ""}
   `;
   return !props.linkButton ? (
     <button

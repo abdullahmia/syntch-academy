@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@/app/components/ui/button";
-import { DropdownElement } from "@/app/components/ui/dropdown";
 import FormElements from "@/app/components/ui/form-elements";
+import { setSearch } from "@/app/features/media/media.slice";
+import { useAppDispatch, useAppSelector } from "@/app/redux";
 import { useState } from "react";
 import { CiFileOn } from "react-icons/ci";
-import { FaRegFolder } from "react-icons/fa";
 import { NewFolderModal } from "./NewFolderModal";
 import { UploadFileModal } from "./UploadFileModal";
 
@@ -17,29 +17,36 @@ export const SearchAction = () => {
   const [isUploadFileModalOpen, setIsUploadFileModalOpen] =
     useState<boolean>(false);
 
+  // hooks
+  const dispatch = useAppDispatch();
+
+  // Redux state
+  const { search: searchValue } = useAppSelector((state) => state.media);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearch(e.target.value));
+  };
+
   return (
     <>
       <div className="p-6 border-b border-lightGray">
         <div className="flex items-center justify-between gap-4">
           <div className="w-2/3">
-            <FormElements.Input placeholder="Start typing to search for file" />
+            <FormElements.Input
+              placeholder="Start typing to search for file"
+              value={searchValue}
+              onChange={handleSearch}
+              type="search"
+            />
           </div>
           <div className="w-1/3 flex items-center justify-end">
-            <DropdownElement.DropdownWrapper
-              actionElement={<Button variant="outline">Upload file</Button>}
+            <Button
+              variant="outline"
+              onClick={() => setIsUploadFileModalOpen(true)}
             >
-              <DropdownElement.DropdownItem
-                onClick={() => setIsNewFolderModalOpen(true)}
-              >
-                <FaRegFolder size={16} /> New folder
-              </DropdownElement.DropdownItem>
-              <DropdownElement.DropdownItem
-                onClick={() => setIsUploadFileModalOpen(true)}
-              >
-                <CiFileOn size={20} />
-                Upload file
-              </DropdownElement.DropdownItem>
-            </DropdownElement.DropdownWrapper>
+              <CiFileOn size={20} />
+              Upload file
+            </Button>
           </div>
         </div>
       </div>

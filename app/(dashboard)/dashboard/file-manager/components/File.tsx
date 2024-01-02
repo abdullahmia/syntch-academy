@@ -147,6 +147,7 @@ export const File = ({ file }: FileProps) => {
             variant="primary"
             size="md"
             fullWidth
+            customClass="flex items-center justify-center "
           >
             <IoDownloadOutline />
             Download
@@ -158,6 +159,7 @@ export const File = ({ file }: FileProps) => {
             onClick={deleteHandler}
             loading={isLoading}
             disabled={isLoading}
+            customClass="flex items-center justify-center"
           >
             <LuTrash />
             Delete

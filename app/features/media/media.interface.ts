@@ -4,3 +4,7 @@ export interface IGetFilesAndFoldersResponse {
   folders: IFolder[];
   media: IFile[];
 }
+
+export interface IMediaState {
+  search: string;
+}

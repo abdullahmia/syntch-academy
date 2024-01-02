@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/app/components/ui/button";
-import FormElements from "@/app/components/ui/form-elements";
 import Modal from "@/app/components/ui/modal";
 import {
   useAddFileMutation,
@@ -10,7 +9,7 @@ import {
 import toast from "cogo-toast";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { FaFileAlt } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
 
@@ -109,7 +108,7 @@ export const UploadFileModal = (props: UploadModalProps) => {
         </div>
 
         <form className="p-4 space-y-5" onSubmit={handleSubmit(onSubmit)}>
-          <div>
+          {/* <div>
             <FormElements.Label withAsterisk>Select folder</FormElements.Label>
             <Controller
               name="folderId"
@@ -123,7 +122,7 @@ export const UploadFileModal = (props: UploadModalProps) => {
                 />
               )}
             />
-          </div>
+          </div> */}
 
           <div>
             {file && (

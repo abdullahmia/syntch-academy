@@ -1,13 +1,16 @@
 "use client";
 
 import { useGetFilesAndFoldersQuery } from "@/app/features/media/media.api";
-import { IFolder } from "@/app/types/media";
+import { useAppSelector } from "@/app/redux";
+import { IFile, IFolder } from "@/app/types/media";
 import { File } from "./File";
 import { Folder } from "./Folder";
 
 export const FileAndFolders = () => {
   const { data } = useGetFilesAndFoldersQuery();
-  console.log(data);
+
+  // redux
+  const { search: searchValue } = useAppSelector((state) => state.media);
 
   // Render folder items
   const renderFolders = () => {
@@ -21,8 +24,10 @@ export const FileAndFolders = () => {
     if (data?.media?.length === 0) {
       return <p className="text-sm text-gray-400">No files found</p>;
     }
-    return data?.media.map((file: any, key: number) => {
-      return <File key={key} file={file} />;
+    return data?.media.map((file: IFile, key: number) => {
+      if (file.name.toLowerCase().includes(searchValue.toLowerCase())) {
+        return <File key={key} file={file} />;
+      }
     });
   };
 
@@ -30,10 +35,10 @@ export const FileAndFolders = () => {
     <>
       <div className="p-6">
         {/* Folders */}
-        <div>
+        {/* <div>
           <h2 className="text-md font-semibold text-primary">Folders</h2>
           <div className="grid grid-cols-4 gap-4 mt-3">{renderFolders()}</div>
-        </div>
+        </div> */}
 
         {/* Files */}
         <div className="mt-6">
