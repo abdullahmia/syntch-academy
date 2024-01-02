@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { removeUser } from "../features/auth/auth.slice";
 import { useAppDispatch, useAppSelector } from "../redux";
 
@@ -55,8 +56,11 @@ export const useIsAuthenticated = () => {
  */
 
 export const useLogout = () => {
+  const router = useRouter();
+
   const dispatch = useAppDispatch();
   const logout = () => {
+    router.push("/auth/login");
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     dispatch(removeUser());

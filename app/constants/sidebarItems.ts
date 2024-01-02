@@ -1,78 +1,43 @@
-export const commonSidebarItems = [
-  {
-    name: "Dashboard",
-    path: "/dashboard",
-    icon: "dashboard",
-  },
-  {
-    name: "Users",
-    path: "/users",
-    icon: "user",
-  },
-  {
-    name: "Products",
-    path: "/products",
-    icon: "shopping-cart",
-  },
-  {
-    name: "Orders",
-    path: "/orders",
-    icon: "shopping-bag",
-  },
-  {
-    name: "Settings",
-    path: "/settings",
-    icon: "settings",
-  },
-];
+import { AiOutlineHome } from "react-icons/ai";
+import { BiCube } from "react-icons/bi";
+import { MdOutlineCollectionsBookmark } from "react-icons/md";
 
-export const sidebarItemsAdmin = [
-  {
-    name: "Dashboard",
-    path: "/dashboard",
-    icon: "dashboard",
-  },
-  {
-    name: "Users",
-    path: "/users",
-    icon: "user",
-  },
-  {
-    name: "Products",
-    path: "/products",
-    icon: "shopping-cart",
-  },
-  {
-    name: "Orders",
-    path: "/orders",
-    icon: "shopping-bag",
-  },
-  {
-    name: "Settings",
-    path: "/settings",
-    icon: "settings",
-  },
-];
+import { USER_ROLES } from ".";
 
-export const sidebarItemsUser = [
-  {
-    name: "Dashboard",
-    path: "/dashboard",
-    icon: "dashboard",
-  },
-  {
-    name: "Products",
-    path: "/products",
-    icon: "shopping-cart",
-  },
-  {
-    name: "Orders",
-    path: "/orders",
-    icon: "shopping-bag",
-  },
-  {
-    name: "Settings",
-    path: "/settings",
-    icon: "settings",
-  },
-];
+export const instructorMenus = [];
+
+export const sidebarItems = {
+  instrutor: [
+    {
+      name: "Dashboard",
+      path: "/instructor",
+      icon: AiOutlineHome,
+    },
+    {
+      name: "My Courses",
+      path: "/instructor/courses",
+      icon: MdOutlineCollectionsBookmark,
+    },
+    {
+      name: "Assignments",
+      path: "/instructor/assignments",
+      icon: BiCube,
+    },
+  ],
+  admin: [],
+  user: [],
+};
+
+export const getSidebarItems = (role: string) => {
+  if (role !== undefined) {
+    if (role === USER_ROLES.ADMIN) {
+      return sidebarItems.admin;
+    } else if (role === USER_ROLES.INSTRUCTOR) {
+      return sidebarItems.instrutor;
+    } else if (role === USER_ROLES.USER) {
+      return sidebarItems.user;
+    }
+  } else {
+    return [];
+  }
+};

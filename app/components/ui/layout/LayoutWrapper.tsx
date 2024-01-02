@@ -12,7 +12,7 @@ interface LayoutWrapperProps {
 
 export const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
   const { user } = useAppSelector((state) => state.auth);
-
+  if (!user) redirect("/");
   if (user?.status === "inactive") redirect("/");
 
   return (

@@ -22,7 +22,6 @@ export const Header = () => {
   // handle logout
   const logoutHandler = () => {
     logout();
-    router.push("/auth/login");
   };
 
   return (
